@@ -1,4 +1,4 @@
-/* Full page styling */
+/* Page styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -6,9 +6,9 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* vertical center */
-    align-items: center;     /* horizontal center */
-    background: linear-gradient(135deg, #89f7fe, #66a6ff); /* soft gradient blue */
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
 
 /* Heading */
@@ -35,7 +35,7 @@ h1 {
     justify-content: center;
     align-items: center;
     padding: 25px;
-    background: rgba(255, 255, 255, 0.9); /* semi-transparent white */
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
@@ -56,23 +56,22 @@ h1 {
 
 /* Hover effect */
 .cell:hover {
-    background: #d0e6ff; /* light blue hover */
+    background: #d0e6ff;
     transform: scale(1.05);
 }
 
 /* X and O colors */
 .cell.X {
-    color: #ff4d4d; /* bright red for X */
+    color: #ff4d4d; /* red for X */
 }
-
 .cell.O {
-    color: #4da6ff; /* bright blue for O */
+    color: #4da6ff; /* blue for O */
 }
 
 /* Winning highlight */
 .cell.win {
-    background: #ffe066; /* yellow highlight */
-    color: #000; /* make X/O visible */
+    background: #ffe066;
+    color: #000;
 }
 
 /* Restart button */
@@ -83,7 +82,7 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 12px;
-    background: #4caf50; /* green */
+    background: #4caf50;
     color: white;
     transition: all 0.2s ease;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
