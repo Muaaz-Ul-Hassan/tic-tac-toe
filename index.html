@@ -2,31 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tic Tac Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe | XO Game</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <header class="game-header">
+            <h1><i class="fas fa-gamepad"></i> TIC TAC TOE</h1>
+            <p class="tagline">The Classic XO Battle</p>
+        </header>
 
-<h1>Tic Tac Toe</h1>
-<p id="status">Player X's turn</p>
+        <main class="game-container">
+            <div class="game-info">
+                <div class="player-turn" id="turn-indicator">
+                    <div class="player-icon">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="turn-text">
+                        <span class="current-player">X</span>'s Turn
+                    </div>
+                </div>
+                
+                <div class="score-board">
+                    <div class="score-box player-x">
+                        <h3><i class="fas fa-user"></i> PLAYER X</h3>
+                        <div class="score-value" id="score-x">0</div>
+                    </div>
+                    <div class="score-box draws">
+                        <h3><i class="fas fa-handshake"></i> DRAWS</h3>
+                        <div class="score-value" id="score-draw">0</div>
+                    </div>
+                    <div class="score-box player-o">
+                        <h3><i class="fas fa-user"></i> PLAYER O</h3>
+                        <div class="score-value" id="score-o">0</div>
+                    </div>
+                </div>
+            </div>
 
-<div class="board">
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+            <div class="game-area">
+                <div class="status-message" id="status">
+                    <span>Player <span class="player-highlight">X</span>'s turn</span>
+                </div>
+                
+                <div class="board-container">
+                    <div class="board">
+                        <div class="cell" data-index="0"></div>
+                        <div class="cell" data-index="1"></div>
+                        <div class="cell" data-index="2"></div>
+                        <div class="cell" data-index="3"></div>
+                        <div class="cell" data-index="4"></div>
+                        <div class="cell" data-index="5"></div>
+                        <div class="cell" data-index="6"></div>
+                        <div class="cell" data-index="7"></div>
+                        <div class="cell" data-index="8"></div>
+                    </div>
+                    <div class="board-grid"></div>
+                </div>
 
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+                <div class="controls">
+                    <button class="btn btn-restart" onclick="resetGame()">
+                        <i class="fas fa-redo"></i> Restart Game
+                    </button>
+                    <button class="btn btn-new-game" onclick="newGame()">
+                        <i class="fas fa-plus-circle"></i> New Game
+                    </button>
+                    <button class="btn btn-mode" onclick="toggleMode()">
+                        <i class="fas fa-robot"></i> vs Computer
+                    </button>
+                </div>
+            </div>
 
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-</div>
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> How to Play</h3>
+                <ul>
+                    <li>Players take turns placing X and O on the grid</li>
+                    <li>First to get 3 in a row (horizontally, vertically, or diagonally) wins</li>
+                    <li>Click on any empty cell to make your move</li>
+                    <li>Try to block your opponent while creating your own line</li>
+                </ul>
+                
+                <div class="game-modes">
+                    <h4><i class="fas fa-cogs"></i> Game Modes</h4>
+                    <div class="mode-options">
+                        <div class="mode active" id="mode-2player">
+                            <i class="fas fa-users"></i>
+                            <span>2 Players</span>
+                        </div>
+                        <div class="mode" id="mode-computer">
+                            <i class="fas fa-robot"></i>
+                            <span>vs Computer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-<button onclick="resetGame()">Restart Game</button>
+        <footer class="game-footer">
+            <p>Made with <i class="fas fa-heart"></i> | Tic Tac Toe Game</p>
+            <p class="copyright">© 2023 All rights reserved</p>
+        </footer>
 
-<script src="script.js"></script>
+        <!-- Win Animation Modal -->
+        <div class="modal" id="winModal">
+            <div class="modal-content">
+                <div class="modal-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 id="winnerText">Player X Wins!</h2>
+                <p id="winMessage">Congratulations on an amazing victory!</p>
+                <button class="btn btn-modal" onclick="closeModal()">Continue Playing</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
