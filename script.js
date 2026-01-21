@@ -16,7 +16,7 @@ const winConditions = [
     [2,4,6]
 ];
 
-// Add click listeners to all cells
+// Click listeners
 cells.forEach((cell, index) => {
     cell.addEventListener("click", () => handleClick(cell, index));
 });
@@ -27,7 +27,7 @@ function handleClick(cell, index) {
     board[index] = currentPlayer;
     cell.textContent = currentPlayer;
 
-    // Add class for color
+    // Add class for X/O color
     cell.classList.add(currentPlayer);
 
     checkWinner();
@@ -38,7 +38,6 @@ function checkWinner() {
 
     for (let condition of winConditions) {
         const [a, b, c] = condition;
-
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
             roundWon = true;
 
@@ -46,7 +45,6 @@ function checkWinner() {
             cells[a].classList.add("win");
             cells[b].classList.add("win");
             cells[c].classList.add("win");
-
             break;
         }
     }
@@ -75,6 +73,6 @@ function resetGame() {
 
     cells.forEach(cell => {
         cell.textContent = "";
-        cell.classList.remove("X", "O", "win"); // Remove old classes
+        cell.classList.remove("X", "O", "win");
     });
 }
