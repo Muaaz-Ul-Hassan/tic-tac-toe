@@ -16,6 +16,7 @@ const winConditions = [
     [2,4,6]
 ];
 
+// Add click listeners to all cells
 cells.forEach((cell, index) => {
     cell.addEventListener("click", () => handleClick(cell, index));
 });
@@ -25,6 +26,9 @@ function handleClick(cell, index) {
 
     board[index] = currentPlayer;
     cell.textContent = currentPlayer;
+
+    // Add class for color
+    cell.classList.add(currentPlayer);
 
     checkWinner();
 }
@@ -37,6 +41,12 @@ function checkWinner() {
 
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
             roundWon = true;
+
+            // Highlight winning cells
+            cells[a].classList.add("win");
+            cells[b].classList.add("win");
+            cells[c].classList.add("win");
+
             break;
         }
     }
@@ -62,6 +72,9 @@ function resetGame() {
     gameActive = true;
     currentPlayer = "X";
     statusText.textContent = "Player X's turn";
-    cells.forEach(cell => cell.textContent = "");
-}
 
+    cells.forEach(cell => {
+        cell.textContent = "";
+        cell.classList.remove("X", "O", "win"); // Remove old classes
+    });
+}
