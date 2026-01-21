@@ -1,118 +1,78 @@
-// Game elements
-const cells = document.querySelectorAll('.cell');
-const status = document.getElementById('status');
-const scoreX = document.getElementById('scoreX');
-const scoreO = document.getElementById('scoreO');
+const cells = document.querySelectorAll(".cell");
+const statusText = document.getElementById("status");
 
-// Game variables
-let currentPlayer = 'X';
+let currentPlayer = "X";
 let gameActive = true;
-let board = ['', '', '', '', '', '', '', '', ''];
-let scores = { X: 0, O: 0 };
+let board = ["", "", "", "", "", "", "", "", ""];
 
-// Winning combinations
-const winPatterns = [
-    [0,1,2], [3,4,5], [6,7,8], // rows
-    [0,3,6], [1,4,7], [2,5,8], // columns
-    [0,4,8], [2,4,6]           // diagonals
+const winConditions = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
 ];
 
-// Load scores from storage
-function loadScores() {
-    const saved = localStorage.getItem('ticTacToeScores');
-    if (saved) {
-        scores = JSON.parse(saved);
-        updateScoreDisplay();
-    }
-}
-
-// Save scores to storage
-function saveScores() {
-    localStorage.setItem('ticTacToeScores', JSON.stringify(scores));
-}
-
-// Update score display
-function updateScoreDisplay() {
-    scoreX.textContent = scores.X;
-    scoreO.textContent = scores.O;
-}
-
-// Handle cell click
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        const index = cell.getAttribute('data-index');
-        
-        // Check if cell is empty and game is active
-        if (board[index] !== '' || !gameActive) return;
-        
-        // Mark cell
-        board[index] = currentPlayer;
-        cell.textContent = currentPlayer;
-        cell.classList.add(currentPlayer);
-        
-        // Check for win or draw
-        checkResult();
-    });
+// Click listeners
+cells.forEach((cell, index) => {
+    cell.addEventListener("click", () => handleClick(cell, index));
 });
 
-// Check game result
-function checkResult() {
+function handleClick(cell, index) {
+    if (board[index] !== "" || !gameActive) return;
+
+    board[index] = currentPlayer;
+    cell.textContent = currentPlayer;
+
+    // Add class for X/O color
+    cell.classList.add(currentPlayer);
+
+    checkWinner();
+}
+
+function checkWinner() {
     let roundWon = false;
-    
-    // Check for win
-    for (let pattern of winPatterns) {
-        const [a, b, c] = pattern;
+
+    for (let condition of winConditions) {
+        const [a, b, c] = condition;
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
             roundWon = true;
-            
+
             // Highlight winning cells
-            pattern.forEach(i => cells[i].classList.add('win'));
+            cells[a].classList.add("win");
+            cells[b].classList.add("win");
+            cells[c].classList.add("win");
             break;
         }
     }
-    
-    // If won
+
     if (roundWon) {
-        status.textContent = `Player ${currentPlayer} Wins!`;
-        scores[currentPlayer]++;
-        updateScoreDisplay();
-        saveScores();
+        statusText.textContent = `Player ${currentPlayer} wins!`;
         gameActive = false;
         return;
     }
-    
-    // Check for draw
-    if (!board.includes('')) {
-        status.textContent = "Game Draw!";
+
+    if (!board.includes("")) {
+        statusText.textContent = "It's a draw!";
         gameActive = false;
         return;
     }
-    
-    // Switch player
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    status.textContent = `Player ${currentPlayer}'s Turn`;
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    statusText.textContent = `Player ${currentPlayer}'s turn`;
 }
 
-// Reset game
 function resetGame() {
-    board = ['', '', '', '', '', '', '', '', ''];
-    currentPlayer = 'X';
+    board = ["", "", "", "", "", "", "", "", ""];
     gameActive = true;
-    status.textContent = "Player X's Turn";
-    
+    currentPlayer = "X";
+    statusText.textContent = "Player X's turn";
+
     cells.forEach(cell => {
-        cell.textContent = '';
-        cell.classList.remove('X', 'O', 'win');
+        cell.textContent = "";
+        cell.classList.remove("X", "O", "win");
     });
 }
-
-// Clear scores
-function clearScores() {
-    scores = { X: 0, O: 0 };
-    updateScoreDisplay();
-    saveScores();
-    resetGame();
-}
-
-// Initialize game
-loadScores();
